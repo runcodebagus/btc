@@ -30,20 +30,16 @@ def predict():
         price_high = float(request.form.get('price_high', '').strip())
         price_low  = float(request.form.get('price_low',  '').strip())
     except (ValueError, AttributeError):
-        return render_template('prediksi.html',
-                               prediction_text="Input tidak valid. Pastikan semua kolom berisi angka.")
+        return render_template('prediksi.html', prediction_text="Input not valid.")
 
-
-    # Validasi logika harga
     if price_high < price_open:
-        output = "Price High tidak boleh lebih kecil dari Price Open."
+        output = "Price High dont exceed Price Open."
     elif price_low > price_high:
-        output = "Price Low tidak boleh lebih besar dari Price High."
+        output = "Price Low dont exceed Price High."
     else:
-        # Siapkan fitur dalam bentuk 2D array untuk sklearn: [[open, high, low]]
         final_features = np.array([[price_open, price_high, price_low]])
         prediction = model.predict(final_features)
-        output = f"Prediksi Harga Bitcoin adalah: $ {round(float(prediction[0]), 2)}"
+        output = f"Bitcoin Price: $ {round(float(prediction[0]), 2)}"
 
     return render_template('prediksi.html', prediction_text=output)
 

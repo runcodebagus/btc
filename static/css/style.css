@@ -1,5 +1,30 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+/* Pastikan navbar selalu di atas layer konten */
+.navbar {
+  position: relative;    /* tetap sesuai punyamu; kalau mau lebih aman bisa fixed */
+  z-index: 1050;         /* lebih tinggi dari konten lain */
+}
+
+/* Konten prediksi jangan menutupi navbar */
+.new, .login, main, .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Kalau kamu masih pakai versi .login absolute lama, cegah dia jadi overlay full screen */
+.login {
+  pointer-events: auto;   /* bisa klik di dalamnya */
+}
+
+/* Hindari aturan body/html yang bikin overlay */
+html, body {
+  height: auto;           /* jangan pakai height:105% */
+  overflow-y: auto;       /* jangan kunci scroll */
+}
+body {
+  position: static;       /* jangan absolute pada body */
+}
 
 .btn{
   background-color: #000000;
